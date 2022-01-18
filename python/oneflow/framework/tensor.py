@@ -437,6 +437,11 @@ def _cos(self):
 def _cosh(self):
     return flow.cosh(self)
 
+def _addcmul(self, tensor1, tensor2, * , value = 1):
+    return flow._C.addcmul(self, tensor1, tensor2, value=value)
+
+def _addcmul_(self, tensor1, tensor2, * , value = 1):
+    return flow._C.addcmul_(self, tensor1, tensor2, value=value)
 
 def _erf(self):
     return flow.erf(self)
@@ -870,6 +875,8 @@ def RegisterMethods():
     Tensor.clip_ = _clip_
     Tensor.cos = _cos
     Tensor.cosh = _cosh
+    Tensor.addcmul = _addcmul
+    Tensor.addcmul_ = _addcmul_
     Tensor.expand_as = _expand_as
     Tensor.erf = _erf
     Tensor.erfc = _erfc

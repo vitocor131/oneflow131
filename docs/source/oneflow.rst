@@ -44,6 +44,7 @@ oneflow
             diag, 
             diagonal,
             movedim,
+            addcmul,
             div, 
             dot, 
             eq, 
