@@ -29,7 +29,7 @@ namespace oneflow {
 
   CHECK_OR_RETURN(ctx->Attr<std::string>("data_format") == "channels_first"
                   && x_desc.shape().NumAxes() == 3)
-      << "upsample_linear_1d only supports NCH";
+      << "upsample_linear_1d op only supports 3-dimensional input when data_format is \"channels_first\"";
   *y_desc->mut_shape() = Shape({x_desc.shape().At(0), x_desc.shape().At(1),
                                 static_cast<int32_t>(scale_factor * x_desc.shape().At(2))});
   return Maybe<void>::Ok();
@@ -52,7 +52,7 @@ namespace oneflow {
   const float scale_factor = ctx->Attr<float>("scale_factor");
   CHECK_OR_RETURN(ctx->Attr<std::string>("data_format") == "channels_first"
                   && x_desc.shape().NumAxes() == 3)
-      << "upsample_nearest_1d only supports NCH";
+      << "upsample_nearest_1d op only supports 3-dimensional input when data_format is \"channels_first\"";
   *y_desc->mut_shape() = Shape({x_desc.shape().At(0), x_desc.shape().At(1),
                                 static_cast<int32_t>(scale_factor * x_desc.shape().At(2))});
   return Maybe<void>::Ok();
@@ -76,7 +76,7 @@ namespace oneflow {
   const float width_scale = ctx->Attr<float>("width_scale");
   CHECK_OR_RETURN(ctx->Attr<std::string>("data_format") == "channels_first"
                   && x_desc.shape().NumAxes() == 4)
-      << "upsample_nearest_2d only supports NCHW";
+      << "upsample_nearest_2d op only supports 4-dimensional input when data_format is \"channels_first\"";
   *y_desc->mut_shape() = Shape({x_desc.shape().At(0), x_desc.shape().At(1),
                                 static_cast<int32_t>(height_scale * x_desc.shape().At(2)),
                                 static_cast<int32_t>(width_scale * x_desc.shape().At(3))});
@@ -101,7 +101,7 @@ namespace oneflow {
   const float width_scale = ctx->Attr<float>("width_scale");
   CHECK_OR_RETURN(ctx->Attr<std::string>("data_format") == "channels_first"
                   && x_desc.shape().NumAxes() == 4)
-      << "upsample_bilinear_2d only supports NCHW";
+      << "upsample_bilinear_2d op only supports 4-dimensional input when data_format is \"channels_first\"";
   *y_desc->mut_shape() = Shape({x_desc.shape().At(0), x_desc.shape().At(1),
                                 static_cast<int32_t>(height_scale * x_desc.shape().At(2)),
                                 static_cast<int32_t>(width_scale * x_desc.shape().At(3))});
@@ -126,7 +126,7 @@ namespace oneflow {
   const float width_scale = ctx->Attr<float>("width_scale");
   CHECK_OR_RETURN(ctx->Attr<std::string>("data_format") == "channels_first"
                   && x_desc.shape().NumAxes() == 4)
-      << "upsample_bicubic_2d only supports NCHW";
+      << "upsample_bicubic_2d op only supports 4-dimensional input when data_format is \"channels_first\"";
   *y_desc->mut_shape() = Shape({x_desc.shape().At(0), x_desc.shape().At(1),
                                 static_cast<int32_t>(height_scale * x_desc.shape().At(2)),
                                 static_cast<int32_t>(width_scale * x_desc.shape().At(3))});
@@ -177,7 +177,7 @@ namespace oneflow {
   const float width_scale = ctx->Attr<float>("width_scale");
   CHECK_OR_RETURN(ctx->Attr<std::string>("data_format") == "channels_first"
                   && x_desc.shape().NumAxes() == 5)
-      << "upsample_nearest_3d only supports NCDHW";
+      << "upsample_nearest_3d op only supports 5-dimensional input when data_format is \"channels_first\"";
   *y_desc->mut_shape() = Shape({x_desc.shape().At(0), x_desc.shape().At(1),
                                 static_cast<int32_t>(depth_scale * x_desc.shape().At(2)),
                                 static_cast<int32_t>(height_scale * x_desc.shape().At(3)),
@@ -204,7 +204,7 @@ namespace oneflow {
   const float width_scale = ctx->Attr<float>("width_scale");
   CHECK_OR_RETURN(ctx->Attr<std::string>("data_format") == "channels_first"
                   && x_desc.shape().NumAxes() == 5)
-      << "upsample_trilinear_3d only supports NCDHW";
+      << "upsample_trilinear_3d op only supports 5-dimensional input when data_format is \"channels_first\"";
   *y_desc->mut_shape() = Shape({x_desc.shape().At(0), x_desc.shape().At(1),
                                 static_cast<int32_t>(depth_scale * x_desc.shape().At(2)),
                                 static_cast<int32_t>(height_scale * x_desc.shape().At(3)),
@@ -228,7 +228,7 @@ namespace oneflow {
   Shape* dx_shape = ctx->OutputShape("dx", 0);
   CHECK_OR_RETURN(ctx->Attr<std::string>("data_format") == "channels_first"
                   && dy_shape.NumAxes() == 3)
-      << "upsample_linear_1d_grad only supports NCH";
+      << "upsample_linear_1d_grad op only supports 3-dimensional input when data_format is \"channels_first\"";
   *dx_shape = ctx->InputShape("x", 0);
   return Maybe<void>::Ok();
 }
@@ -249,7 +249,7 @@ namespace oneflow {
   Shape* dx_shape = ctx->OutputShape("dx", 0);
   CHECK_OR_RETURN(ctx->Attr<std::string>("data_format") == "channels_first"
                   && dy_shape.NumAxes() == 3)
-      << "upsample_nearest_1d_grad only supports NCH";
+      << "upsample_nearest_1d_grad op only supports 3-dimensional input when data_format is \"channels_first\"";
   *dx_shape = ctx->InputShape("x", 0);
   return Maybe<void>::Ok();
 }
@@ -271,7 +271,7 @@ namespace oneflow {
   Shape* dx_shape = ctx->OutputShape("dx", 0);
   CHECK_OR_RETURN(ctx->Attr<std::string>("data_format") == "channels_first"
                   && dy_shape.NumAxes() == 4)
-      << "upsample_nearest_2d_grad only supports NCHW";
+      << "upsample_nearest_2d_grad op only supports 4-dimensional input when data_format is \"channels_first\"";
   *dx_shape = ctx->InputShape("x", 0);
   return Maybe<void>::Ok();
 }
@@ -294,7 +294,7 @@ namespace oneflow {
   Shape* dx_shape = ctx->OutputShape("dx", 0);
   CHECK_OR_RETURN(ctx->Attr<std::string>("data_format") == "channels_first"
                   && dy_shape.NumAxes() == 4)
-      << "upsample_bilinear_2d_grad only supports NCHW";
+      << "upsample_bilinear_2d_grad op only supports 4-dimensional input when data_format is \"channels_first\"";
   *dx_shape = ctx->InputShape("x", 0);
   return Maybe<void>::Ok();
 }
@@ -316,7 +316,7 @@ namespace oneflow {
   Shape* dx_shape = ctx->OutputShape("dx", 0);
   CHECK_OR_RETURN(ctx->Attr<std::string>("data_format") == "channels_first"
                   && dy_shape.NumAxes() == 4)
-      << "upsample_bicubic_2d_grad only supports NCHW";
+      << "upsample_bicubic_2d_grad op only supports 4-dimensional input when data_format is \"channels_first\"";
   *dx_shape = ctx->InputShape("x", 0);
   return Maybe<void>::Ok();
 }
@@ -359,7 +359,7 @@ namespace oneflow {
   Shape* dx_shape = ctx->OutputShape("dx", 0);
   CHECK_OR_RETURN(ctx->Attr<std::string>("data_format") == "channels_first"
                   && dy_shape.NumAxes() == 5)
-      << "upsample_nearest_3d_grad only supports NCDHW";
+      << "upsample_nearest_3d_grad op only supports 5-dimensional input when data_format is \"channels_first\"";
   *dx_shape = ctx->InputShape("x", 0);
   return Maybe<void>::Ok();
 }
@@ -382,7 +382,7 @@ namespace oneflow {
   Shape* dx_shape = ctx->OutputShape("dx", 0);
   CHECK_OR_RETURN(ctx->Attr<std::string>("data_format") == "channels_first"
                   && dy_shape.NumAxes() == 5)
-      << "upsample_trilinear_3d_grad only supports NCDHW";
+      << "upsample_trilinear_3d_grad op only supports 5-dimensional input when data_format is \"channels_first\"";
   *dx_shape = ctx->InputShape("x", 0);
   return Maybe<void>::Ok();
 }
