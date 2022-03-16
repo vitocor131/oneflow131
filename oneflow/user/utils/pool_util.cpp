@@ -68,7 +68,7 @@ Params3D::Params3D(const int32_t dim, const ShapeView& x_shape, const std::strin
     channel_num_ = x_shape.At(1);
   } else {
     CHECK_EQ(data_format_, "channels_last")
-        << "data_format must be 'channels_first' or 'channels_last'";
+        << "data_format must be 'channels_first' or 'channels_last', but got " << data_format_;
     channel_num_ = x_shape.At(x_shape.NumAxes() - 1);
   }
   batch_num_ = x_shape.At(0);
@@ -96,7 +96,7 @@ Shape Params3D::GetYShape() const {
     y_dim_vec.insert(y_dim_vec.begin(), channel_num_);
   } else {
     CHECK_EQ(data_format_, "channels_last")
-        << "data_format must be 'channels_first' or 'channels_last'";
+        << "data_format must be 'channels_first' or 'channels_last', but got " << data_format_;
     y_dim_vec.insert(y_dim_vec.end(), channel_num_);
   }
   y_dim_vec.insert(y_dim_vec.begin(), batch_num_);
