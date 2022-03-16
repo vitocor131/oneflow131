@@ -23,7 +23,7 @@ namespace oneflow {
 Maybe<void> VarOp::InferLogicalTensorDesc(user_op::InferContext* ctx) {
   const Shape& input_shape = ctx->InputShape("input", 0);
   const auto& reduce_axes = ctx->Attr<std::vector<int32_t>>("dim");
-  CHECK_OR_RETURN(!reduce_axes.empty());
+  CHECK_OR_RETURN(!reduce_axes.empty()) << "variance op's need attribute dim list, but got empty!";
   const AxisVector reduce_axes_vec = {reduce_axes.begin(), reduce_axes.end()};
   const Shape& reduce_shape = CreateReducedShape(input_shape, reduce_axes_vec);
   const bool keepdim = ctx->Attr<bool>("keepdim");
